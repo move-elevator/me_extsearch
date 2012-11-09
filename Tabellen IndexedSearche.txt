@@ -1,0 +1,9 @@
+index_phash,
+index_fulltext,
+index_words,
+index_section,
+index_grlist,
+index_stat_search,
+index_debug,
+index_config,
+index_stat_word
