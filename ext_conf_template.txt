@@ -1,0 +1,2 @@
+# cat=basic; type=int[3-999]; label=Eintragsalter: Geben Sie die Anzahl an Tagen an, in deren Alter der Cache bereinigt werden soll.
+countOfDays = 3
