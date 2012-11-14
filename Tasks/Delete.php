@@ -11,6 +11,11 @@ class tx_meextsearch_tasks_delete extends tx_scheduler_Task {
 
     public function execute() {
         $this->extConf = tx_mesearch_utility_generalutility::getExtConfiguration();
+        
+        if(!is_array($this->extConf)) {
+            throw new Exception("Invalid count of days! count of day must be number greater than or equal 3.");
+        }
+            
         $pHashArray = $this->getPhash();
         if (is_array($pHashArray)) {
             foreach ($pHashArray as $pHash) {
