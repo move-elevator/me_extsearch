@@ -37,6 +37,7 @@ class tx_meextsearch_tasks_delete extends tx_scheduler_Task {
 
     /**
      * get Records to delete
+     * 
      * @return array
      */
     public function getPhash($tstamp = '') {
@@ -55,7 +56,8 @@ class tx_meextsearch_tasks_delete extends tx_scheduler_Task {
     }
 
     /**
-     * Delte Records from table "index_phash"
+     * Delete Records from table "index_phash"
+     * 
      * @param string $pHash
      * @return mixed
      */
@@ -64,7 +66,8 @@ class tx_meextsearch_tasks_delete extends tx_scheduler_Task {
     }
 
     /**
-     * Delte Records from table "index_grlist"
+     * Delete Records from table "index_grlist"
+     * 
      * @param string $pHash
      * @return mixed
      */
@@ -73,7 +76,8 @@ class tx_meextsearch_tasks_delete extends tx_scheduler_Task {
     }
 
     /**
-     * Delte Records from table "index_fulltext"
+     * Delete Records from table "index_fulltext"
+     * 
      * @param string $pHash
      * @return mixed
      */
@@ -83,7 +87,8 @@ class tx_meextsearch_tasks_delete extends tx_scheduler_Task {
 
     /**
      * Delete Record from table "cache_pages"
-     * @param <string> $pages
+     * 
+     * @param string $pages
      * @return mixed
      */    
     public function deleteCacheRecordPages($pages) {
@@ -92,7 +97,8 @@ class tx_meextsearch_tasks_delete extends tx_scheduler_Task {
     
     /**
      * Delete Records from table "cache_pagesection"
-     * @param <string> $pages
+     * 
+     * @param string $pages
      * @return mixed
      */
     public function deleteCacheRecordPagesection($pages) {

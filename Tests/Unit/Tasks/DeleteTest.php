@@ -29,14 +29,18 @@ class Tx_MeExtSearch_Tasks_DeleteTest extends Tx_Extbase_Tests_Unit_BaseTestCase
      */
     public function testDeleteRecordFromIndexPhashTable() {
         $this->testingFramework->createRecord('index_phash', array(
-            'phash' => 9010000, 'item_title' => 'my_test_phash'
+            'phash' => 9010001
         ));
         $this->testingFramework->createRecord('index_phash', array(
-            'phash' => 9010001, 'item_title' => 'my_test_phash2'
+            'phash' => 9010002
         ));
-        $this->object->result = $this->object->deleteRecordPhash('9010000, 9010001');
-
-        $this->assertEquals(TRUE, $this->object->result);
+        $this->testingFramework->createRecord('index_phash', array(
+            'phash' => 9010003
+        ));
+        $this->object->result = $this->object->deleteRecordGrlist('9010001, 9010002');
+        $this->testingFramework->dummyColumnName = $this->testingFramework->getDummyColumnName('index_phash');
+        $this->testingFramework->result = $this->testingFramework->existsRecord('index_phash', $this->testingFramework->dummyColumnName . '=1 and phash = \'9010003\'');
+        $this->assertEquals(TRUE, $this->object->result);  
     }
 
     /**
@@ -49,8 +53,13 @@ class Tx_MeExtSearch_Tasks_DeleteTest extends Tx_Extbase_Tests_Unit_BaseTestCase
         $this->testingFramework->createRecord('index_grlist', array(
             'phash' => 9010002
         ));
+        $this->testingFramework->createRecord('index_grlist', array(
+            'phash' => 9010003
+        ));
         $this->object->result = $this->object->deleteRecordGrlist('9010001, 9010002');
-        $this->assertEquals(TRUE, $this->object->result);
+        $this->testingFramework->dummyColumnName = $this->testingFramework->getDummyColumnName('index_grlist');
+        $this->testingFramework->result = $this->testingFramework->existsRecord('index_grlist', $this->testingFramework->dummyColumnName . '=1 and phash = \'9010003\'');
+        $this->assertEquals(TRUE, $this->object->result);        
     }
 
     /**
@@ -58,14 +67,18 @@ class Tx_MeExtSearch_Tasks_DeleteTest extends Tx_Extbase_Tests_Unit_BaseTestCase
      */
     public function testDeleteRecordFromIndexFulltextTable() {
         $this->testingFramework->createRecord('index_fulltext', array(
-            'phash' => 9010021
+            'phash' => 9010001
         ));
         $this->testingFramework->createRecord('index_fulltext', array(
-            'phash' => 9010022
+            'phash' => 9010002
         ));
-
-        $this->object->result = $this->object->deleteRecordFulltext('9010021, 9010022');    
-        $this->assertEquals(TRUE, $this->object->result);
+        $this->testingFramework->createRecord('index_fulltext', array(
+            'phash' => 9010003
+        ));
+        $this->object->result = $this->object->deleteRecordGrlist('9010001, 9010002');
+        $this->testingFramework->dummyColumnName = $this->testingFramework->getDummyColumnName('index_fulltext');
+        $this->testingFramework->result = $this->testingFramework->existsRecord('index_fulltext', $this->testingFramework->dummyColumnName . '=1 and phash = \'9010003\'');
+        $this->assertEquals(TRUE, $this->object->result);  
     }
 
     /**
@@ -73,31 +86,39 @@ class Tx_MeExtSearch_Tasks_DeleteTest extends Tx_Extbase_Tests_Unit_BaseTestCase
      */
     public function testDeleteRecordFromCachePagesTable() {
         $this->testingFramework->createRecord('cache_pages', array(
-            'page_id' => 9010021
+            'page_id' => 9010001
         ));
         $this->testingFramework->createRecord('cache_pages', array(
-            'page_id' => 9010022
+            'page_id' => 9010002
         ));
-
-        $this->object->result = $this->object->deleteCacheRecordPages('9010021, 9010022');
-        $this->assertEquals(TRUE, $this->object->result);
+        $this->testingFramework->createRecord('cache_pages', array(
+            'page_id' => 9010003
+        ));
+        $this->object->result = $this->object->deleteRecordGrlist('9010001, 9010002');
+        $this->testingFramework->dummyColumnName = $this->testingFramework->getDummyColumnName('cache_pages');
+        $this->testingFramework->result = $this->testingFramework->existsRecord('cache_pages', $this->testingFramework->dummyColumnName . '=1 and page_id = \'9010003\'');
+        $this->assertEquals(TRUE, $this->object->result);  
     }
-    
+
     /**
      * Testing delete 'cache_pagesection'
      */
     public function testDeleteRecordFromCachePagesectionTable() {
         $this->testingFramework->createRecord('cache_pagesection', array(
-            'page_id' => 9010021
+            'page_id' => 9010001
         ));
         $this->testingFramework->createRecord('cache_pagesection', array(
-            'page_id' => 9010022
+            'page_id' => 9010002
         ));
+        $this->testingFramework->createRecord('cache_pagesection', array(
+            'page_id' => 9010003
+        ));
+        $this->object->result = $this->object->deleteRecordGrlist('9010001, 9010002');
+        $this->testingFramework->dummyColumnName = $this->testingFramework->getDummyColumnName('cache_pagesection');
+        $this->testingFramework->result = $this->testingFramework->existsRecord('cache_pagesection', $this->testingFramework->dummyColumnName . '=1 and page_id = \'9010003\'');
+        $this->assertEquals(TRUE, $this->object->result);  
+    }
 
-        $this->object->result = $this->object->deleteCacheRecordPagesection('9010021, 9010022');
-        $this->assertEquals(TRUE, $this->object->result);
-    }    
-    
     /**
      * Testing get record from table index_phash
      */
