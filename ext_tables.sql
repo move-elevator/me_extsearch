@@ -9,3 +9,11 @@ CREATE TABLE index_grlist (
 CREATE TABLE index_fulltext (
 	tx_meextsearch_is_dummy_record int(11) DEFAULT '0' NOT NULL
 );
+
+CREATE TABLE cache_pages (
+	tx_meextsearch_is_dummy_record int(11) DEFAULT '0' NOT NULL
+);
+
+CREATE TABLE cache_pagesection (
+	tx_meextsearch_is_dummy_record int(11) DEFAULT '0' NOT NULL
+);
