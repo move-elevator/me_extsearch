@@ -1,0 +1,19 @@
+plugin.tx_meextsearch {
+	settings {
+		search_pagebrowser {
+			NO {
+				wrap = <li> | </li>
+			}
+			CUR {
+				wrap = <li class="active"> | </li>
+			}
+			PREV {
+				alwaysDisplay = 1
+				disabled.wrap = <li class="disabled"><span> | </span></li>
+				wrap = <li> | </li>
+			}
+			NEXT < .PREV
+			wrap = <ul class="pagination"> | </ul>
+		}
+	}
+}
