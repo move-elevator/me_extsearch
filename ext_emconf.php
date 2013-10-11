@@ -11,7 +11,7 @@
 ########################################################################
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'Delete Searchcache',
+	'title' => 'Indexed Search Extensions',
 	'description' => '',
 	'category' => 'plugin',
 	'author' => 'Jan Maennig',
