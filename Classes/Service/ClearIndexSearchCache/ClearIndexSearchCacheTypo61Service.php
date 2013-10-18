@@ -40,7 +40,7 @@ class ClearIndexSearchCacheTypo61Service {
 	 * @return bool
 	 */
 	public function execute() {
-        $pHashRecords = tx_mesearch_utility_indexutility::getPhash($this->extConf['countOfDays']);
+        $pHashRecords = tx_mesearch_utility_generalutility::getPhash($this->extConf['countOfDays']);
         $identifierList = array();
         $phashList = array();
         if (is_array($pHashRecords)) {
