@@ -11,6 +11,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['tx_indexedsearch'] = array(
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_meextsearch_tasks_delete'] = array(
     'extension' => $_EXTKEY,
     'title' => 'Delete Search Cache',
-    'description' => 'Delete Cache Indexed Searche older then 3 days'
+    'description' => 'Delete Cache Indexed Search older then 3 days'
 );
 ?>
