@@ -31,7 +31,7 @@ class tx_mesearch_utility_generalutility {
 	 * @return bool
 	 */
 	public static function deleteRecordsByIdentifierColumn($table, $identifierColumn, $identifier) {
-        return $GLOBALS['TYPO3_DB']->exec_DELETEquery($table, $identifierColumn . ' IN (' . $identifier . ')');
+        return $GLOBALS['TYPO3_DB']->exec_DELETEquery($table, $identifierColumn . ' IN (' . self::implodeString(',',$identifier) . ')');
     }
 
 	/**
@@ -43,7 +43,7 @@ class tx_mesearch_utility_generalutility {
 	public static function deleteRecordsByTableList($tableList, $identifierColumn, $identifierList) {
 		$resultList = array();
 		foreach ($tableList as $table) {
-			$resultList[] = tx_mesearch_utility_generalutility::deleteRecordsByIdentifierColumn($table, $identifierColumn, $identifierList);
+			$resultList[] = self::deleteRecordsByIdentifierColumn($table, $identifierColumn, $identifierList);
 		}
 		return $resultList;
 	}
