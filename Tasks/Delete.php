@@ -21,18 +21,9 @@ class tx_meextsearch_tasks_delete extends tx_scheduler_Task {
         if (!is_array($extConf)) {
             throw new Exception("Invalid count of days! count of day must be number greater than or equal 3.");
         }
-        $versionBranch = (int) substr($GLOBALS['TYPO_VERSION'], 0, 1).substr($GLOBALS['TYPO_VERSION'], 2, 1);
-        switch (true) {
-            case ($versionBranch <= 45):
-                require_once t3lib_extMgm::extPath('me_extsearch') . 'Classes/Service/ClearIndexSearchCache/ClearIndexSearchCacheTypo45Service.php';
-                t3lib_div::makeInstance('ClearIndexSearchCacheTypo45Service', $extConf);
-                break;
-            case ($versionBranch <= 61):
-                require_once t3lib_extMgm::extPath('me_extsearch') . 'Classes/Service/ClearIndexSearchCache/ClearIndexSearchCacheTypo61Service.php';
-                t3lib_div::makeInstance('ClearIndexSearchCacheTypo61Service', $extConf);
-                break;
-            default:
-        }
+        require_once t3lib_extMgm::extPath('me_extsearch') . 'Classes/Service/ClearIndexSearchCache/ClearIndexSearchCacheTypoService.php';
+        t3lib_div::makeInstance('ClearIndexSearchCacheTypoService', $extConf);
+
         return TRUE;
     }
 

@@ -1,8 +1,8 @@
 <?php
 /**
- * Class ClearIndexSearchCacheTypo45Service
+ * Class ClearIndexSearchCacheTypoService
  */
-class ClearIndexSearchCacheTypo45Service {
+class ClearIndexSearchCacheTypoService {
 
     /**
      * @var array 
@@ -24,8 +24,8 @@ class ClearIndexSearchCacheTypo45Service {
      * @var array 
      */
     protected $pageTables = array(
-        'cache_pages',
-        'cache_pagesection'
+        'cf_cache_pages',
+        'cf_cache_pages_tags'
     );
 
     /**
@@ -41,15 +41,15 @@ class ClearIndexSearchCacheTypo45Service {
 	 */
 	public function execute() {
         $pHashRecords = tx_mesearch_utility_generalutility::getPhash($this->extConf['countOfDays']);
-        $pageIdList = array();
+        $identifierList = array();
         $phashList = array();
         if (is_array($pHashRecords)) {
             foreach ($pHashRecords as $item) {
-                $pageIdList[] = $item['data_page_id'];
+                $identifierList[] = tx_mesearch_utility_generalutility::getPageIdentifier($item['data_page_id']);
                 $phashList[] = $item['phash'];
             }
 			tx_mesearch_utility_generalutility::deleteRecordsByTableList($this->indexTables, 'phash', $phashList);
-			tx_mesearch_utility_generalutility::deleteRecordsByTableList($this->pageTables, 'page_id', $pageIdList);
+			tx_mesearch_utility_generalutility::deleteRecordsByTableList($this->pageTables, 'identifier', $identifierList);
             return TRUE;
         }
     }
