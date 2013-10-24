@@ -1,0 +1,29 @@
+page.jsFooterInline.9383 = COA
+page.jsFooterInline.9383.30 = TEXT
+page.jsFooterInline.9383.30.value = $("#tx-indexedsearch-searchbox-sword").autocomplete({
+page.jsFooterInline.9383.40 = TEXT
+page.jsFooterInline.9383.40.value = source: "index.php?eID=me_extsearch_autocomplete&language={GP:L}&limit={$plugin.tx_meextsearch.search_autocomplete.maxResults}",
+page.jsFooterInline.9383.40.insertData = 1
+page.jsFooterInline.9383.50 = TEXT
+page.jsFooterInline.9383.50.value  (
+    minLength: 3,
+    select: function(event, ui) {
+      $("#tx-indexedsearch-searchbox-sword").value=ui.item.value;
+      window.setTimeout(function(){searchbox_autocomplete_submit()},10);
+    }
+)
+page.jsFooterInline.9383.60 = TEXT
+page.jsFooterInline.9383.60.value = });
+page.jsFooterInline.9383.70 = TEXT
+page.jsFooterInline.9383.70.value (
+  var searchbox_autocomplete_submit = function(){
+    $("#tx-indexedsearch-searchbox").submit();
+  }
+)
+
+
+page.includeCSS {
+	jqueryui = http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/jquery-ui.css
+	jqueryui.external = 1
+	jqueryui.media = all
+}

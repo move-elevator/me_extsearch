@@ -1,0 +1,3 @@
+plugin.tx_meextsearch.search_autocomplete {
+	maxResults = 3
+}
