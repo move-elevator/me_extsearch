@@ -82,7 +82,7 @@ class tx_mesearch_utility_generalutility {
 			$delTstmp = $tstamp;
 		}
 
-		$pHashArray = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('phash, data_page_id', 'index_phash', 'crdate < ' . $delTstmp);
+		$pHashArray = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('phash, data_page_id', 'index_phash', 'tstamp < ' . $delTstmp);
 
 		if (is_array($pHashArray) and count($pHashArray)) {
 			return $pHashArray;
