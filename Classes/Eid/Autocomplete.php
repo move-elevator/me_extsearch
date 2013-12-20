@@ -20,11 +20,6 @@ class Autocomplete {
 
 	const EXTKEY = 'meextsearch';
 
-	public function __construct() {
-		// Connect to database:
-		EidUtility::connectDB();
-	}
-
 	/**
 	 * @return void
 	 */
