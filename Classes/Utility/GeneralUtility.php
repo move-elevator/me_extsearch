@@ -8,21 +8,20 @@ class tx_mesearch_utility_generalutility {
 	 * @return array|bool
 	 */
 	public static function getExtConfiguration() {
-        $configuration = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['me_extsearch']);
-        return self::valid($configuration);
-    }
+		$configuration = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['me_extsearch']);
+		return self::valid($configuration);
+	}
 
 	/**
 	 * @param array $configuration
 	 * @return array|bool
 	 */
 	public static function valid(array $configuration) {
-        if ((int) $configuration['countOfDays'] >= 3) {
-            return $configuration;
-        } else {
-            return FALSE;
-        }
-    }
+		if ((int)$configuration['countOfDays'] >= 3) {
+			return $configuration;
+		}
+		return FALSE;
+	}
 
 	/**
 	 * @param string $table
@@ -31,8 +30,8 @@ class tx_mesearch_utility_generalutility {
 	 * @return bool
 	 */
 	public static function deleteRecordsByIdentifierColumn($table, $identifierColumn, $identifier) {
-        return $GLOBALS['TYPO3_DB']->exec_DELETEquery($table, $identifierColumn . ' IN (' . self::implodeString(',',$identifier) . ')');
-    }
+		return $GLOBALS['TYPO3_DB']->exec_DELETEquery($table, $identifierColumn . ' IN (' . self::implodeString(',', $identifier) . ')');
+	}
 
 	/**
 	 * @param array $tableList
@@ -48,26 +47,26 @@ class tx_mesearch_utility_generalutility {
 		return $resultList;
 	}
 
-    /**
-     * @param string $glue
-     * @param array $array
-     * @return string|boolean
-     */
-    public static function implodeString($glue, $array) {
-        if (!is_array($array)) {
-            return FALSE;
-        }
-        $returnString = '';
-        $i = 0;
-        foreach ($array as $item) {
-            if ($i > 0) {
-                $returnString .= $glue;
-            }
-            $returnString .= '\'' . $item . '\'';
-            $i++;
-        }
-        return $returnString;
-    }
+	/**
+	 * @param string $glue
+	 * @param array $array
+	 * @return string|boolean
+	 */
+	public static function implodeString($glue, $array) {
+		if (!is_array($array)) {
+			return FALSE;
+		}
+		$returnString = '';
+		$i = 0;
+		foreach ($array as $item) {
+			if ($i > 0) {
+				$returnString .= $glue;
+			}
+			$returnString .= '\'' . $item . '\'';
+			$i++;
+		}
+		return $returnString;
+	}
 
 	/**
 	 * @param int $countOfDays
@@ -86,9 +85,8 @@ class tx_mesearch_utility_generalutility {
 
 		if (is_array($pHashArray) and count($pHashArray)) {
 			return $pHashArray;
-		} else {
-			return FALSE;
 		}
+		return FALSE;
 	}
 
 	/**

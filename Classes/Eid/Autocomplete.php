@@ -13,7 +13,6 @@ if (!(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_FE)) {
 
 /**
  * Class Autocomplete
- *
  * @package MoveElevator\MeExtsearch\Eid
  */
 class Autocomplete {
@@ -24,8 +23,8 @@ class Autocomplete {
 	 * @return void
 	 */
 	public function main() {
-		if (isset($_GET['term'])) {
-			$query = $this->createQuery($_GET['term'], $this->getLanguage());
+		if (\t3lib_div::_GET('term')) {
+			$query = $this->createQuery(\t3lib_div::_GET('term'), $this->getLanguage());
 			$words = $this->getList($query);
 			echo json_encode($words);
 		}
@@ -38,7 +37,7 @@ class Autocomplete {
 	protected function getList($query) {
 		$res = $GLOBALS['TYPO3_DB']->sql_query($query);
 		$results = array();
-		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
+		while (($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))) {
 			$results[] = array(
 				'id' => $row['baseword'],
 				'label' => $row['baseword'],
@@ -56,13 +55,13 @@ class Autocomplete {
 	protected function createQuery($search) {
 		$words = GeneralUtility::trimExplode(' ', $search, 1);
 
-		$where_array = array();
+		$whereArray = array();
 		foreach ($words as $word) {
-			$where_array[] = 'baseword LIKE ' . $GLOBALS['TYPO3_DB']->fullQuoteStr('%' . $word . '%', 'index_words');
+			$whereArray[] = 'baseword LIKE ' . $GLOBALS['TYPO3_DB']->fullQuoteStr('%' . $word . '%', 'index_words');
 		}
 
 		$from = 'index_words';
-		$where = '(' . implode(' AND ', $where_array) . ')';
+		$where = '(' . implode(' AND ', $whereArray) . ')';
 
 		// Join with index_phash table
 		$from .= ',index_rel,index_phash';
@@ -83,7 +82,7 @@ class Autocomplete {
 	}
 
 	protected function getLanguage() {
-		$languageId = intval($_GET['language']);
+		$languageId = intval(\t3lib_div::_GET('language'));
 		if ($languageId > 0) {
 			return $languageId;
 		}
@@ -92,7 +91,7 @@ class Autocomplete {
 	}
 
 	protected function getLimit() {
-		$limit = intval($_GET['limit']);
+		$limit = intval(\t3lib_div::_GET('limit'));
 		if ($limit > 0) {
 			return $limit;
 		}

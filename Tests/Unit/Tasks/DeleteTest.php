@@ -5,7 +5,7 @@ require_once t3lib_extMgm::extPath('me_extsearch') . 'Classes/Utility/GeneralUti
 class Tx_MeExtSearch_Tasks_DeleteTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
 
     /**
-     * @var tx_meextsearch_tasks_delete 
+     * @var tx_meextsearch_tasks_delete
      */
     protected $object;
 
@@ -40,7 +40,7 @@ class Tx_MeExtSearch_Tasks_DeleteTest extends Tx_Extbase_Tests_Unit_BaseTestCase
         $this->object->result = $this->object->deleteRecordGrlist('9010001, 9010002');
         $this->testingFramework->dummyColumnName = $this->testingFramework->getDummyColumnName('index_phash');
         $this->testingFramework->result = $this->testingFramework->existsRecord('index_phash', $this->testingFramework->dummyColumnName . '=1 and phash = \'9010003\'');
-        $this->assertEquals(TRUE, $this->object->result);  
+        $this->assertEquals(TRUE, $this->object->result);
     }
 
     /**
@@ -59,7 +59,7 @@ class Tx_MeExtSearch_Tasks_DeleteTest extends Tx_Extbase_Tests_Unit_BaseTestCase
         $this->object->result = $this->object->deleteRecordGrlist('9010001, 9010002');
         $this->testingFramework->dummyColumnName = $this->testingFramework->getDummyColumnName('index_grlist');
         $this->testingFramework->result = $this->testingFramework->existsRecord('index_grlist', $this->testingFramework->dummyColumnName . '=1 and phash = \'9010003\'');
-        $this->assertEquals(TRUE, $this->object->result);        
+        $this->assertEquals(TRUE, $this->object->result);
     }
 
     /**
@@ -78,7 +78,7 @@ class Tx_MeExtSearch_Tasks_DeleteTest extends Tx_Extbase_Tests_Unit_BaseTestCase
         $this->object->result = $this->object->deleteRecordGrlist('9010001, 9010002');
         $this->testingFramework->dummyColumnName = $this->testingFramework->getDummyColumnName('index_fulltext');
         $this->testingFramework->result = $this->testingFramework->existsRecord('index_fulltext', $this->testingFramework->dummyColumnName . '=1 and phash = \'9010003\'');
-        $this->assertEquals(TRUE, $this->object->result);  
+        $this->assertEquals(TRUE, $this->object->result);
     }
 
     /**
@@ -97,7 +97,7 @@ class Tx_MeExtSearch_Tasks_DeleteTest extends Tx_Extbase_Tests_Unit_BaseTestCase
         $this->object->result = $this->object->deleteRecordGrlist('9010001, 9010002');
         $this->testingFramework->dummyColumnName = $this->testingFramework->getDummyColumnName('cache_pages');
         $this->testingFramework->result = $this->testingFramework->existsRecord('cache_pages', $this->testingFramework->dummyColumnName . '=1 and page_id = \'9010003\'');
-        $this->assertEquals(TRUE, $this->object->result);  
+        $this->assertEquals(TRUE, $this->object->result);
     }
 
     /**
@@ -116,7 +116,7 @@ class Tx_MeExtSearch_Tasks_DeleteTest extends Tx_Extbase_Tests_Unit_BaseTestCase
         $this->object->result = $this->object->deleteRecordGrlist('9010001, 9010002');
         $this->testingFramework->dummyColumnName = $this->testingFramework->getDummyColumnName('cache_pagesection');
         $this->testingFramework->result = $this->testingFramework->existsRecord('cache_pagesection', $this->testingFramework->dummyColumnName . '=1 and page_id = \'9010003\'');
-        $this->assertEquals(TRUE, $this->object->result);  
+        $this->assertEquals(TRUE, $this->object->result);
     }
 
     /**
