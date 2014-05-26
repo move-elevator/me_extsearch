@@ -4,6 +4,7 @@
  * Class tx_mesearch_utility_generalutility
  */
 class tx_mesearch_utility_generalutility {
+
 	/**
 	 * @return array|bool
 	 */
@@ -30,7 +31,8 @@ class tx_mesearch_utility_generalutility {
 	 * @return bool
 	 */
 	public static function deleteRecordsByIdentifierColumn($table, $identifierColumn, $identifier) {
-		return $GLOBALS['TYPO3_DB']->exec_DELETEquery($table, $identifierColumn . ' IN (' . self::implodeString(',', $identifier) . ')');
+		/** @var $TYPO3_DB t3lib_DB */
+		return $TYPO3_DB->exec_DELETEquery($table, $identifierColumn . ' IN (' . implode("','", $identifier) . ')');
 	}
 
 	/**
@@ -39,7 +41,7 @@ class tx_mesearch_utility_generalutility {
 	 * @param array $identifierList
 	 * @return array
 	 */
-	public static function deleteRecordsByTableList($tableList, $identifierColumn, $identifierList) {
+	public static function deleteRecordsByTableList(array $tableList, $identifierColumn, array $identifierList) {
 		$resultList = array();
 		foreach ($tableList as $table) {
 			$resultList[] = self::deleteRecordsByIdentifierColumn($table, $identifierColumn, $identifierList);
@@ -48,55 +50,36 @@ class tx_mesearch_utility_generalutility {
 	}
 
 	/**
-	 * @param string $glue
-	 * @param array $array
-	 * @return string|boolean
-	 */
-	public static function implodeString($glue, $array) {
-		if (!is_array($array)) {
-			return FALSE;
-		}
-		$returnString = '';
-		$i = 0;
-		foreach ($array as $item) {
-			if ($i > 0) {
-				$returnString .= $glue;
-			}
-			$returnString .= '\'' . $item . '\'';
-			$i++;
-		}
-		return $returnString;
-	}
-
-	/**
 	 * @param int $countOfDays
-	 * @param string $tstamp
+	 * @param int $tstamp
 	 * @return array|bool
 	 */
-	public static function getPhash($countOfDays, $tstamp = '') {
-		$dayCountHoures = (int)$countOfDays * 24;
-		if ($tstamp == '') {
-			$delTstmp = time() - (60 * 60 * $dayCountHoures);
+	public static function getPhash($countOfDays, $tstamp = 0) {
+		$dayCountHours = (int)$countOfDays * 24;
+		if ($tstamp === 0) {
+			$delTstmp = time() - (60 * 60 * $dayCountHours);
 		} else {
 			$delTstmp = $tstamp;
 		}
+		/** @var $TYPO3_DB t3lib_DB */
+		$pHashArray = $TYPO3_DB->exec_SELECTgetRows('phash, data_page_id', 'index_phash', 'tstamp < ' . $delTstmp);
 
-		$pHashArray = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('phash, data_page_id', 'index_phash', 'tstamp < ' . $delTstmp);
-
-		if (is_array($pHashArray) and count($pHashArray)) {
+		if (is_array($pHashArray) && count($pHashArray) > 0) {
 			return $pHashArray;
 		}
 		return FALSE;
 	}
 
 	/**
-	 * @param integer $pageId
+	 * @param int $pageId
 	 * @return string
 	 */
 	public static function getPageIdentifier($pageId) {
-		$identifierRow = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow('identifier', 'cf_cache_pages_tags', "tag = 'pageId_" . $pageId . "'");
-		return $identifierRow['identifier'];
+		/** @var $TYPO3_DB t3lib_DB */
+		$identifierRow = $TYPO3_DB->exec_SELECTgetSingleRow('identifier', 'cf_cache_pages_tags', "tag = 'pageId_" . $pageId . "'");
+		if (isset($identifierRow['identifier'])) {
+			return $identifierRow['identifier'];
+		}
+		return NULL;
 	}
 }
-
-?>
