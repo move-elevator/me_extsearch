@@ -2,7 +2,7 @@
 
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'Indexed Search Extensions',
+	'title' => 'm:e Indexed Search Extensions',
 	'description' => '',
 	'category' => 'plugin',
 	'author' => 'Jan Maennig',
@@ -22,7 +22,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'constraints' => array(
 		'depends' => array(
 			'extbase' => '1.3',
-			'typo3' => '4.5-6.1-6.2.99',
+			'typo3' => '6.1-6.2.99',
 		),
 		'conflicts' => array(),
 		'suggests' => array(),
