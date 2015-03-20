@@ -56,7 +56,7 @@ class IndexUtility {
 
 	/**
 	 * @param int $pageId
-	 * @return string
+	 * @return string|NULL
 	 */
 	static public function getPageIdentifier($pageId) {
 		$identifierRow = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow('identifier', 'cf_cache_pages_tags', "tag = 'pageId_" . $pageId . "'");

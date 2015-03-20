@@ -65,7 +65,7 @@ class IndexService implements SingletonInterface {
 	 */
 	protected function getCountOfDays() {
 		$countOfDays = ExtensionSettingsUtility::getSinglePropertyByName('me_extsearch', 'countOfDays');
-		if (!is_numeric($countOfDays) || intval($countOfDays) === 0) {
+		if (!is_numeric($countOfDays) || intval($countOfDays) < 3) {
 			throw new InvalidConfigurationException('Invalid count of days! count of day must be number greater than or equal 3.');
 		}
 
