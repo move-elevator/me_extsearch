@@ -19,6 +19,6 @@ class ExtensionSettingsUtility extends MeLibraryExtensionSettingsUtility {
 	 * @return bool
 	 */
 	static public function checkPageBrowserOverwrite() {
-		return (bool) parent::getSinglePropertyByName(EXT_KEY, 'overwritePagebrowser')
+		return (bool) parent::getSinglePropertyByName(EXT_KEY, 'overwritePagebrowser');
 	}
 }
