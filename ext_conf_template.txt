@@ -1,2 +1,5 @@
-# cat=basic; type=int[3-999]; label=Eintragsalter: Geben Sie die Anzahl an Tagen an, in deren Alter der Cache bereinigt werden soll.
+# cat=basic; type=int[3-999]; label=Minimum age of search cache records to be deleted
 countOfDays = 3
+
+# cat=searchform/enable; type=boolean; label=Overwrite pagination in search result list.
+overwritePagebrowser = 0
