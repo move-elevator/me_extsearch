@@ -2,9 +2,9 @@
 
 namespace MoveElevator\MeExtsearch\Controller;
 
-use MoveElevator\MeExtsearch\Service\SettingsService;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\MathUtility;
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use \TYPO3\CMS\Core\Utility\MathUtility;
+use \MoveElevator\MeExtsearch\Service\SettingsService;
 
 /**
  * Class SearchFormController
@@ -13,10 +13,14 @@ use TYPO3\CMS\Core\Utility\MathUtility;
  */
 class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFormController {
 
-	/**@var  \MoveElevator\MeExtsearch\Service\SettingsService */
+	/**
+	 * @var  \MoveElevator\MeExtsearch\Service\SettingsService
+	 */
 	protected $settingsService;
 
-	/** @var array */
+	/**
+	 * @var array
+	 */
 	protected $links = array();
 
 	/**
@@ -45,7 +49,7 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 		// Initializing variables:
 		$pointer = intval($this->piVars['pointer']);
 		$count = $this->internal['res_count'];
-		$resultsAtaTime = MathUtility::forceIntegerInRange($this->internal['resultsAtaTime'], 1, 1000);
+		$resultsAtaTime = MathUtility::forceIntegerInRange($this->internal['results_at_a_time'], 1, 1000);
 		$maxPages = MathUtility::forceIntegerInRange($this->internal['maxPages'], 1, 100);
 		$pageCount = ceil($count / $resultsAtaTime);
 		$sTables = '';
@@ -56,7 +60,10 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 			$this->addNextLink($freeIndexUid, $pointer, $pageCount);
 
 			if (is_array($this->links) && count($this->links) > 0) {
-				$addPart .= $this->cObj->stdWrap(implode('', $this->links), $this->settingsService->getByPath('search_pagebrowser'));
+				$addPart .= $this->cObj->stdWrap(
+					implode('', $this->links),
+					$this->settingsService->getByPath('search_pagebrowser')
+				);
 				$this->links = array();
 			}
 		}
@@ -64,11 +71,19 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 		$pR1 = $pointer * $resultsAtaTime + 1;
 		$pR2 = $pointer * $resultsAtaTime + $resultsAtaTime;
 
-		$label = $this->pi_getLL('pi_list_browseresults_display', 'Displaying results ###TAG_BEGIN###%s to %s###TAG_END### out of ###TAG_BEGIN###%s###TAG_END###');
+		$label = $this->pi_getLL(
+			'pi_list_browseresults_display',
+			'Displaying results ###TAG_BEGIN###%s to %s###TAG_END### out of ###TAG_BEGIN###%s###TAG_END###'
+		);
 		$label = str_replace('###TAG_BEGIN###', '<strong>', $label);
 		$label = str_replace('###TAG_END###', '</strong>', $label);
 		$sTables = '<div' . $this->pi_classParam('browsebox') . '>';
-		$sTables .= ($showResultCount ? '<p>' . sprintf($label, $pR1, min(array($this->internal['res_count'], $pR2)), $this->internal['res_count']) . $addString . '</p>' : '') . $addPart . '</div>';
+		$sTables .= ($showResultCount ? '<p>' . sprintf(
+					$label,
+					$pR1,
+					min(array($this->internal['res_count'], $pR2)),
+					$this->internal['res_count']) . $addString . '</p>' : ''
+			) . $addPart . '</div>';
 		return $sTables;
 	}
 
@@ -87,7 +102,8 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 				$min = $min - ($max - $pageCount);
 			}
 			if ($a >= $min && $a < $max) {
-				$link = $this->makePointerSelector_link(trim(($this->pi_getLL('pi_list_browseresults_page', 'Page', 1) . ' ' . ($a + 1))), $a, $freeIndexUid);
+				$link = $this->makePointerSelector_link(trim(($this->pi_getLL('pi_list_browseresults_page', 'Page', 1) . ' '
+					. ($a + 1))), $a, $freeIndexUid);
 				if ($a == $pointer) {
 					$this->links[] = $this->cObj->stdWrap($link, $this->settingsService->getByPath('search_pagebrowser.CUR'));
 				} else {
@@ -98,8 +114,8 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 	}
 
 	/**
-	 * @param $freeIndexUid
-	 * @param $pointer
+	 * @param int $freeIndexUid
+	 * @param int $pointer
 	 * @return void
 	 */
 	protected function addPrevLink($freeIndexUid, $pointer) {
@@ -110,15 +126,18 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 		} else {
 			$alwaysDisplay = $this->settingsService->getByPath('search_pagebrowser.PREV.alwaysDisplay');
 			if (intval($alwaysDisplay) === 1) {
-				$this->links[] = $this->cObj->stdWrap($llDirection, $this->settingsService->getByPath('search_pagebrowser.PREV.disabled'));
+				$this->links[] = $this->cObj->stdWrap(
+					$llDirection,
+					$this->settingsService->getByPath('search_pagebrowser.PREV.disabled')
+				);
 			}
 		}
 	}
 
 	/**
-	 * @param $freeIndexUid
-	 * @param $pointer
-	 * @param $pageCount
+	 * @param int $freeIndexUid
+	 * @param int $pointer
+	 * @param int $pageCount
 	 * @return void
 	 */
 	protected function addNextLink($freeIndexUid, $pointer, $pageCount) {
@@ -129,7 +148,10 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 		} else {
 			$alwaysDisplay = $this->settingsService->getByPath('search_pagebrowser.NEXT.alwaysDisplay');
 			if (intval($alwaysDisplay) === 1) {
-				$this->links[] = $this->cObj->stdWrap($llDirection, $this->settingsService->getByPath('search_pagebrowser.NEXT.disabled'));
+				$this->links[] = $this->cObj->stdWrap(
+					$llDirection,
+					$this->settingsService->getByPath('search_pagebrowser.NEXT.disabled')
+				);
 			}
 		}
 	}
