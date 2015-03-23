@@ -114,8 +114,8 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 	}
 
 	/**
-	 * @param $freeIndexUid
-	 * @param $pointer
+	 * @param int $freeIndexUid
+	 * @param int $pointer
 	 * @return void
 	 */
 	protected function addPrevLink($freeIndexUid, $pointer) {
@@ -135,9 +135,9 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 	}
 
 	/**
-	 * @param $freeIndexUid
-	 * @param $pointer
-	 * @param $pageCount
+	 * @param int $freeIndexUid
+	 * @param int $pointer
+	 * @param int $pageCount
 	 * @return void
 	 */
 	protected function addNextLink($freeIndexUid, $pointer, $pageCount) {
