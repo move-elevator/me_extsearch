@@ -247,6 +247,7 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 				$content .= $this->printResultRow($row);
 			}
 		}
+
 		return '<div' . $this->pi_classParam('res') . '>' . $content . '</div>';
 	}
 
