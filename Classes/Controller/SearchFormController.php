@@ -14,7 +14,7 @@ use \MoveElevator\MeExtsearch\Service\SettingsService;
 class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFormController {
 
 	/**
-	 * @var  \MoveElevator\MeExtsearch\Service\SettingsService
+	 * @var \MoveElevator\MeExtsearch\Service\SettingsService
 	 */
 	protected $settingsService;
 
@@ -37,6 +37,8 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 
 	/**
 	 * Returns a results browser
+	 * overwrite to use bootstrap for pagebrowser
+	 *
 	 * @param int $showResultCount Show result count
 	 * @param string $addString String appended to "displaying results..." notice.
 	 * @param string $addPart String appended after section "displaying results...
@@ -84,6 +86,7 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 					min(array($this->internal['res_count'], $pR2)),
 					$this->internal['res_count']) . $addString . '</p>' : ''
 			) . $addPart . '</div>';
+
 		return $sTables;
 	}
 
@@ -155,6 +158,97 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 			}
 		}
 	}
-}
 
-?>
+	/**
+	 * Takes the array with resultrows as input and returns the result-HTML-code
+	 * Takes the "group" var into account: Makes a "section" or "flat" display.
+	 * Overwrite to fixed exact count bug so that only the desired number of
+	 * records is displayed
+	 *
+	 * @param array  Result rows
+	 * @param integer Pointer to which indexing configuration you want to search in. -1 means no
+	 * filtering. 0 means only regular indexed content.
+	 * @return string HTML
+	 * @todo Define visibility
+	 */
+	public function compileResult($resultRows, $freeIndexUid = -1) {
+		$content = '';
+		// Transfer result rows to new variable, performing some mapping of sub-results etc.
+		$newResultRows = array();
+		foreach ($resultRows as $row) {
+			$id = md5($row['phash_grouping']);
+			if (is_array($newResultRows[$id])) {
+				if (!$newResultRows[$id]['show_resume'] && $row['show_resume']) {
+					// swapping:
+					// Remove old
+					$subrows = $newResultRows[$id]['_sub'];
+					unset($newResultRows[$id]['_sub']);
+					$subrows[] = $newResultRows[$id];
+					// Insert new:
+					$newResultRows[$id] = $row;
+					$newResultRows[$id]['_sub'] = $subrows;
+				} else {
+					$newResultRows[$id]['_sub'][] = $row;
+				}
+			} else {
+				$newResultRows[$id] = $row;
+			}
+		}
+		$resultRows = $newResultRows;
+		$this->resultSections = array();
+		if ($freeIndexUid <= 0) {
+			switch ($this->piVars['group']) {
+				case 'sections':
+					$rl2flag = substr($this->piVars['sections'], 0, 2) == 'rl';
+					$sections = array();
+					foreach ($resultRows as $row) {
+						$id = $row['rl0'] . '-' . $row['rl1'] . ($rl2flag ? '-' . $row['rl2'] : '');
+						$sections[$id][] = $row;
+					}
+					$this->resultSections = array();
+					foreach ($sections as $id => $resultRows) {
+						$rlParts = explode('-', $id);
+						$theId = $rlParts[2] ? $rlParts[2] : ($rlParts[1] ? $rlParts[1] : $rlParts[0]);
+						$theRLid = $rlParts[2] ? 'rl2_' . $rlParts[2] : ($rlParts[1] ? 'rl1_' . $rlParts[1] : '0');
+						$sectionName = $this->getPathFromPageId($theId);
+						if ($sectionName[0] == '/') {
+							$sectionName = substr($sectionName, 1);
+						}
+						if (!trim($sectionName)) {
+							$sectionTitleLinked = $this->pi_getLL('unnamedSection', '', 1) . ':';
+						} else {
+							$onclick = 'document.' . $this->prefixId . '[\'' . $this->prefixId . '[_sections]\'].value=\'' . $theRLid . '\';document.' . $this->prefixId . '.submit();return false;';
+							$sectionTitleLinked = '<a href="#" onclick="' . htmlspecialchars($onclick) . '">' . htmlspecialchars($sectionName) . ':</a>';
+						}
+						$this->resultSections[$id] = array($sectionName, count($resultRows));
+						// Add content header:
+						$content .= $this->makeSectionHeader($id, $sectionTitleLinked, count($resultRows));
+						// Render result rows:
+						foreach ($resultRows as $row) {
+							$content .= $this->printResultRow($row);
+						}
+					}
+					break;
+				default:
+					// flat:
+					$searchResultIndex = 0;
+					foreach ($resultRows as $row) {
+						$content .= $this->printResultRow($row);
+						// add result record counter so that only the desired number is displayed
+						$searchResultIndex++;
+						if ($searchResultIndex >= $this->piVars['results']) {
+							break;
+						}
+					}
+					break;
+			}
+		} else {
+			foreach ($resultRows as $row) {
+				$content .= $this->printResultRow($row);
+			}
+		}
+
+		return '<div' . $this->pi_classParam('res') . '>' . $content . '</div>';
+	}
+
+}
