@@ -14,7 +14,10 @@ class HooksHandler {
 	 * @return void
 	 */
 	public function initialize_postProc() {
-		if(!$this->pObj->conf['show.']['specialSection.'] || !$this->pObj->conf['show.']['specialSection.']['active']) {
+		if(
+			!$this->pObj->conf['show.']['specialSection.']
+			|| !$this->pObj->conf['show.']['specialSection.']['active']
+		) {
 			return;
 		}
 
@@ -35,28 +38,32 @@ class HooksHandler {
 		$firstLevelMenu = $this->pObj->getMenu($this->pObj->wholeSiteIdList);
 		foreach($firstLevelMenu as $optionName => $mR) {
 			// check for nav_hide value
-			if(!$mR['nav_hide']) {
-				$this->pObj->optValues['sections']['rl1_' . $mR['uid']] = trim(
-					$this->pObj->pi_getLL('opt_RL1') . ' ' . $mR['title']
-				);
-				// check for typoscript option show.L2sections
-				if(!$this->pObj->conf['show.']['L2sections']) {
+			if($mR['nav_hide']) {
+				unset($firstLevelMenu[$optionName]);
+				continue;
+			}
+
+			$this->pObj->optValues['sections']['rl1_' . $mR['uid']] = trim(
+				$this->pObj->pi_getLL('opt_RL1') . ' ' . $mR['title']
+			);
+
+			// check for typoscript option show.L2sections
+			if(!$this->pObj->conf['show.']['L2sections']) {
+				continue;
+			}
+
+			// get subpages from give page
+			$secondLevelMenu = $this->pObj->getMenu($mR['uid']);
+			foreach($secondLevelMenu as $kk2 => $mR2) {
+				// check for nav_hide value
+				if($mR2['nav_hide']) {
+					unset($secondLevelMenu[$kk2]);
 					continue;
 				}
-				// get subpages from give page
-				$secondLevelMenu = $this->pObj->getMenu($mR['uid']);
-				foreach($secondLevelMenu as $kk2 => $mR2) {
-					// check for nav_hide value
-					if(!$mR2['nav_hide']) {
-						$this->pObj->optValues['sections']['rl2_' . $mR2['uid']] = trim(
-							$this->pObj->pi_getLL('opt_RL2') . ' ' . $mR2['title']
-						);
-					} else {
-						unset($secondLevelMenu[$kk2]);
-					}
-				}
-			} else {
-				unset($firstLevelMenu[$optionName]);
+
+				$this->pObj->optValues['sections']['rl2_' . $mR2['uid']] = trim(
+					$this->pObj->pi_getLL('opt_RL2') . ' ' . $mR2['title']
+				);
 			}
 		}
 
@@ -69,8 +76,9 @@ class HooksHandler {
 				$level = count($GLOBALS['TSFE']->sys_page->getRootLine($pid)) - 1;
 				$pageTitle = $this->getPageTitle($pid);
 				if(!$pageTitle || $pageTitle === '') {
-					return;
+					continue;
 				}
+
 				$this->pObj->optValues['sections']['rl' . $level . '_' . $pid] = trim(
 					$this->pObj->pi_getLL('opt_RL1') . ' ' . $pageTitle
 				);
