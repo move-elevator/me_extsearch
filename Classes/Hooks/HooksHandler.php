@@ -79,7 +79,7 @@ class HooksHandler {
 					continue;
 				}
 
-				$this->pObj->optValues['sections']['rl' . $level . '_' . $pid] = trim(
+				$this->pObj->optValues['sections']['page_id_' . $this->pObj->pi_getPidList($pid,1)] = trim(
 					$this->pObj->pi_getLL('opt_RL1') . ' ' . $pageTitle
 				);
 			}
