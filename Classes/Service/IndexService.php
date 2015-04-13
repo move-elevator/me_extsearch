@@ -2,9 +2,11 @@
 
 namespace MoveElevator\MeExtsearch\Service;
 
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
 use \TYPO3\CMS\Core\Resource\Exception\InvalidConfigurationException;
 use \TYPO3\CMS\Core\SingletonInterface;
 use \MoveElevator\MeExtsearch\Utility\IndexUtility;
+use \MoveElevator\MeExtsearch\Utility\ClearCacheUtility;
 use \MoveElevator\MeLibrary\Utility\ExtensionSettingsUtility;
 
 /**
@@ -15,46 +17,28 @@ use \MoveElevator\MeLibrary\Utility\ExtensionSettingsUtility;
 class IndexService implements SingletonInterface {
 
 	/**
-	 * @var array
-	 */
-	protected $indexTables = array(
-		'index_phash',
-		'index_grlist',
-		'index_fulltext',
-		'index_rel',
-		'index_section'
-	);
-
-	/**
-	 * @var array
-	 */
-	protected $pageTables = array(
-		'cf_cache_pages',
-		'cf_cache_pages_tags'
-	);
-
-	/**
 	 * Remove search index records which are older than 3 days
 	 *
 	 * @return bool
 	 */
 	public function clearOlderEntries() {
+		/** @var \TYPO3\CMS\IndexedSearch\Indexer $indexer */
+		$indexer = GeneralUtility::makeInstance('TYPO3\CMS\IndexedSearch\Indexer');
 		$countOfDays = $this->getCountOfDays();
 		$pageHashRecords = IndexUtility::getPhash($countOfDays);
-		$identifiers = array();
-		$pageHashesDeleted = array();
-		if (is_array($pageHashRecords)) {
-			foreach ($pageHashRecords as $item) {
-				$identifiers[] = IndexUtility::getPageIdentifier($item['data_page_id']);
-				$pageHashesDeleted[] = $item['phash'];
-			}
-			IndexUtility::deleteRecordsByTableList($this->indexTables, 'phash', $pageHashesDeleted);
-			IndexUtility::deleteRecordsByTableList($this->pageTables, 'identifier', $identifiers);
 
-			return TRUE;
+		if (!is_array($pageHashRecords) || count($pageHashRecords) === 0) {
+			return FALSE;
 		}
 
-		return FALSE;
+		foreach ($pageHashRecords as $item) {
+			$indexer->removeOldIndexedPages($item['phash']);
+			if ((int)$item['data_page_id'] > 0) {
+				ClearCacheUtility::clearCacheByPage((int)$item['data_page_id']);
+			}
+		}
+
+		return TRUE;
 	}
 
 	/**
@@ -72,5 +56,3 @@ class IndexService implements SingletonInterface {
 		return intval($countOfDays);
 	}
 }
-
-?>

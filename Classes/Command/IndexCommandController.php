@@ -17,7 +17,6 @@ class IndexCommandController extends CommandController {
 	 * @return bool
 	 */
 	public function clearCommand() {
-
 		/** @var \MoveElevator\MeExtsearch\Service\IndexService $indexService */
 		$indexService = $this->objectManager->get(self::CLEAR_SERVICE_NAME);
 
