@@ -2,15 +2,12 @@
 
 namespace MoveElevator\MeExtsearch\Utility;
 
-use \MoveElevator\MeLibrary\Utility\ExtensionSettingsUtility as MeLibraryExtensionSettingsUtility;
-
 /**
  * Class ExtensionSettingsUtility
  *
  * @package MoveElevator\MeExtsearch\Utility
  */
-class ExtensionSettingsUtility extends MeLibraryExtensionSettingsUtility {
-
+class ExtensionSettingsUtility {
 	const EXT_KEY = 'me_extsearch';
 
 	/**
@@ -19,6 +16,24 @@ class ExtensionSettingsUtility extends MeLibraryExtensionSettingsUtility {
 	 * @return bool
 	 */
 	static public function checkPageBrowserOverwrite() {
-		return (bool) parent::getSinglePropertyByName(self::EXT_KEY, 'overwritePagebrowser');
+		return (bool)self::getSinglePropertyByName('overwritePagebrowser');
+	}
+
+	/**
+	 * Get value of single property from extension configuration
+	 *
+	 * @param string $propertyName
+	 * @return mixed
+	 */
+	public static function getSinglePropertyByName($propertyName) {
+		if (!isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][self::EXT_KEY])) {
+			return NULL;
+		}
+		$extensionSettings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][self::EXT_KEY]);
+		if (!is_array($extensionSettings) || !isset($extensionSettings[$propertyName])) {
+			return NULL;
+		}
+
+		return $extensionSettings[$propertyName];
 	}
 }

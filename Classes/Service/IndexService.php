@@ -7,7 +7,7 @@ use \TYPO3\CMS\Core\Resource\Exception\InvalidConfigurationException;
 use \TYPO3\CMS\Core\SingletonInterface;
 use \MoveElevator\MeExtsearch\Utility\IndexUtility;
 use \MoveElevator\MeExtsearch\Utility\ClearCacheUtility;
-use \MoveElevator\MeLibrary\Utility\ExtensionSettingsUtility;
+use \MoveElevator\MeExtsearch\Utility\ExtensionSettingsUtility;
 
 /**
  * Class IndexService
