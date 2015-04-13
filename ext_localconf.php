@@ -20,5 +20,6 @@ if ((bool) \MoveElevator\MeExtsearch\Utility\ExtensionSettingsUtility::checkPage
 $TYPO3_CONF_VARS['FE']['eID_include']['me_extsearch_autocomplete'] = 'EXT:me_extsearch/Classes/Eid/Autocomplete.php';
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = $meEstSearchNameSpaces['command'];
 
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['indexed_search']['addRootLineFields']['tx_meextsearch_rl3'] = 3;
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['indexed_search']['pi1_hooks']['initialize_postProc'] =
 	'EXT:me_extsearch/Classes/Hooks/HooksHandler.php:HooksHandler';
