@@ -11,7 +11,7 @@ $meEstSearchNameSpaces = array(
 	'command' => 'MoveElevator\MeExtsearch\Command\IndexCommandController'
 );
 
-if ((bool) \MoveElevator\MeExtsearch\Utility\ExtensionSettingsUtility::checkPageBrowserOverwrite() === TRUE) {
+if (\MoveElevator\MeExtsearch\Utility\ExtensionSettingsUtility::checkPageBrowserOverwrite() === TRUE) {
 	$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['tx_indexedsearch'] = array(
 		'className' => $meEstSearchNameSpaces['searchForm'],
 	);
