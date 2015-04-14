@@ -15,8 +15,8 @@ class HooksHandler {
 	 */
 	public function initialize_postProc() {
 		if(
-			!$this->pObj->conf['show.']['specialSection.']
-			|| !$this->pObj->conf['show.']['specialSection.']['active']
+			!$this->pObj->conf['show.']['addL3section.']
+			|| !$this->pObj->conf['show.']['addL3section.']['active']
 		) {
 			return;
 		}
@@ -68,9 +68,9 @@ class HooksHandler {
 		}
 
 		// add special option fields
-		if($this->pObj->conf['show.']['specialSection.']['pid']) {
+		if($this->pObj->conf['show.']['addL3section.']['pid']) {
 			// read possible page ids
-			$pidArray = explode(',', $this->pObj->conf['show.']['specialSection.']['pid']);
+			$pidArray = explode(',', $this->pObj->conf['show.']['addL3section.']['pid']);
 			foreach($pidArray as $pid) {
 				// get level of given page for option value
 				$level = count($GLOBALS['TSFE']->sys_page->getRootLine($pid)) - 1;
@@ -79,7 +79,7 @@ class HooksHandler {
 					continue;
 				}
 
-				$this->pObj->optValues['sections']['page_id_' . $this->pObj->pi_getPidList($pid,1)] = trim(
+				$this->pObj->optValues['sections']['tx_meextsearch_rl3_' . $pid] = trim(
 					$this->pObj->pi_getLL('opt_RL1') . ' ' . $pageTitle
 				);
 			}
