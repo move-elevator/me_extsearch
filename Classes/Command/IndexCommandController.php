@@ -31,6 +31,7 @@ class IndexCommandController extends CommandController {
 		if ((int)$configuration['countOfDays'] >= 3) {
 			return $configuration;
 		}
+
 		return FALSE;
 	}
 }
