@@ -1,4 +1,8 @@
 $( document ).ready( function() {
+	var searchbox_autocomplete_submit = function() {
+		$( "#tx-indexedsearch-searchbox" ).submit();
+	};
+
 	$( "#tx-indexedsearch-searchbox-sword" ).autocomplete( {
 		source: "index.php?eID=me_extsearch_autocomplete&language=" + language + "&limit=" + limit,
 		minLength: 3,
@@ -9,8 +13,4 @@ $( document ).ready( function() {
 			}, 10 );
 		}
 	} );
-
-	var searchbox_autocomplete_submit = function() {
-		$( "#tx-indexedsearch-searchbox" ).submit();
-	};
 } );
