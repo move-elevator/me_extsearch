@@ -1,7 +1,5 @@
 <?php
 
-use \MoveElevator\MeExtsearch\Utility\ExtensionSettingsUtility;
-
 if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }

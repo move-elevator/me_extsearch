@@ -4,6 +4,7 @@ namespace MoveElevator\MeExtsearch\Controller;
 
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
 use \TYPO3\CMS\Core\Utility\MathUtility;
+use \TYPO3\CMS\IndexedSearch\Controller\SearchFormController as OriginSearchFormController;
 use \MoveElevator\MeExtsearch\Service\SettingsService;
 
 /**
@@ -11,7 +12,7 @@ use \MoveElevator\MeExtsearch\Service\SettingsService;
  *
  * @package MoveElevator\MeExtsearch\Controller
  */
-class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFormController {
+class SearchFormController extends OriginSearchFormController {
 
 	/**
 	 * @var \MoveElevator\MeExtsearch\Service\SettingsService
@@ -42,7 +43,7 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 	 * @param int $showResultCount Show result count
 	 * @param string $addString String appended to "displaying results..." notice.
 	 * @param string $addPart String appended after section "displaying results...
-	 * @param int $freeIndexUid List of integers pointing to free indexing configurations to search.
+	 * @param int $freeIndexUid Integers pointing free indexing configs to search.
 	 *    -1 represents no filtering, 0 represents TYPO3 pages only,
 	 *    any number above zero is a uid of an indexing configuration!
 	 * @return string  HTML output
@@ -105,8 +106,8 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 				$min = $min - ($max - $pageCount);
 			}
 			if ($a >= $min && $a < $max) {
-				$link = $this->makePointerSelector_link(trim(($this->pi_getLL('pi_list_browseresults_page', 'Page', 1) . ' '
-					. ($a + 1))), $a, $freeIndexUid);
+				$link = $this->makePointerSelector_link(trim(($this->pi_getLL('pi_list_browseresults_page', 'Page', 1) . ' ' .
+					($a + 1))), $a, $freeIndexUid);
 				if ($a == $pointer) {
 					$this->links[] = $this->cObj->stdWrap($link, $this->settingsService->getByPath('search_pagebrowser.CUR'));
 				} else {
@@ -166,14 +167,14 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 	 * records is displayed
 	 *
 	 * @param array  Result rows
-	 * @param integer Pointer to which indexing configuration you want to search in. -1 means no
+	 * @param integer Pointer which indexing config you want to search in. -1 as no
 	 * filtering. 0 means only regular indexed content.
 	 * @return string HTML
 	 * @todo Define visibility
 	 */
 	public function compileResult($resultRows, $freeIndexUid = -1) {
 		$content = '';
-		// Transfer result rows to new variable, performing some mapping of sub-results etc.
+		// Result rows to new variable, performing some mapping of sub-results etc.
 		$newResultRows = array();
 		foreach ($resultRows as $row) {
 			$id = md5($row['phash_grouping']);
@@ -208,8 +209,8 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 					$this->resultSections = array();
 					foreach ($sections as $id => $resultRows) {
 						$rlParts = explode('-', $id);
-						$theId = $rlParts[2] ? $rlParts[2] : ($rlParts[1] ? $rlParts[1] : $rlParts[0]);
-						$theRLid = $rlParts[2] ? 'rl2_' . $rlParts[2] : ($rlParts[1] ? 'rl1_' . $rlParts[1] : '0');
+						$theId = $this->getIdFromResultLineParts($rlParts);
+						$theResultLineId = $this->getResultLineIdFromResultLineParts($rlParts);
 						$sectionName = $this->getPathFromPageId($theId);
 						if ($sectionName[0] == '/') {
 							$sectionName = substr($sectionName, 1);
@@ -217,8 +218,10 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 						if (!trim($sectionName)) {
 							$sectionTitleLinked = $this->pi_getLL('unnamedSection', '', 1) . ':';
 						} else {
-							$onclick = 'document.' . $this->prefixId . '[\'' . $this->prefixId . '[_sections]\'].value=\'' . $theRLid . '\';document.' . $this->prefixId . '.submit();return false;';
-							$sectionTitleLinked = '<a href="#" onclick="' . htmlspecialchars($onclick) . '">' . htmlspecialchars($sectionName) . ':</a>';
+							$onclick = 'document.' . $this->prefixId . '[\'' . $this->prefixId . '[_sections]\'].value=\'' .
+								$theResultLineId . '\';document.' . $this->prefixId . '.submit();return false;';
+							$sectionTitleLinked = '<a href="#" onclick="' . htmlspecialchars($onclick) . '">' .
+								htmlspecialchars($sectionName) . ':</a>';
 						}
 						$this->resultSections[$id] = array($sectionName, count($resultRows));
 						// Add content header:
@@ -240,7 +243,6 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 							break;
 						}
 					}
-					break;
 			}
 		} else {
 			foreach ($resultRows as $row) {
@@ -249,6 +251,38 @@ class SearchFormController extends \TYPO3\CMS\IndexedSearch\Controller\SearchFor
 		}
 
 		return '<div' . $this->pi_classParam('res') . '>' . $content . '</div>';
+	}
+
+	/**
+	 * @param array $rlParts
+	 * @return mixed
+	 */
+	protected function getIdFromResultLineParts($rlParts) {
+		if (!isset($rlParts[2]) && !isset($rlParts[1])) {
+			return $rlParts[0];
+		}
+
+		if (!isset($rlParts[2])) {
+			return $rlParts[1];
+		}
+
+		return $rlParts[2];
+	}
+
+	/**
+	 * @param array $rlParts
+	 * @return string
+	 */
+	protected function getResultLineIdFromResultLineParts($rlParts) {
+		if (!isset($rlParts[2]) && !isset($rlParts[1])) {
+			return 0;
+		}
+
+		if (!isset($rlParts[2])) {
+			return 'rl1_' . $rlParts[1];
+		}
+
+		return 'rl2_' . $rlParts[2];
 	}
 
 }

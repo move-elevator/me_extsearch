@@ -16,7 +16,10 @@ class IndexUtility {
 	 * @return bool
 	 */
 	static public function deleteRecordsByIdentifierColumn($table, $identifierColumn, $identifier) {
-		return $GLOBALS['TYPO3_DB']->exec_DELETEquery($table, $identifierColumn . ' IN (\'' . implode("','", $identifier) . '\')');
+		return $GLOBALS['TYPO3_DB']->exec_DELETEquery(
+			$table,
+			$identifierColumn . ' IN ("' . implode('","', $identifier) . '")'
+		);
 	}
 
 	/**
@@ -28,7 +31,11 @@ class IndexUtility {
 	static public function deleteRecordsByTableList(array $tableList, $identifierColumn, array $identifierList) {
 		$resultList = array();
 		foreach ($tableList as $table) {
-			$resultList[] = self::deleteRecordsByIdentifierColumn($table, $identifierColumn, $identifierList);
+			$resultList[] = self::deleteRecordsByIdentifierColumn(
+				$table,
+				$identifierColumn,
+				$identifierList
+			);
 		}
 		return $resultList;
 	}
@@ -46,11 +53,16 @@ class IndexUtility {
 			$delTstmp = $tstamp;
 		}
 
-		$pHashArray = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('phash, data_page_id', 'index_phash', 'tstamp < ' . $delTstmp);
+		$pHashArray = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+			'phash, data_page_id',
+			'index_phash',
+			'tstamp < ' . $delTstmp
+		);
 
 		if (is_array($pHashArray) && count($pHashArray) > 0) {
 			return $pHashArray;
 		}
+
 		return FALSE;
 	}
 
@@ -59,7 +71,11 @@ class IndexUtility {
 	 * @return string|NULL
 	 */
 	static public function getPageIdentifier($pageId) {
-		$identifierRow = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow('identifier', 'cf_cache_pages_tags', "tag = 'pageId_" . $pageId . "'");
+		$identifierRow = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow(
+			'identifier',
+			'cf_cache_pages_tags',
+			"tag = 'pageId_" . $pageId . "'"
+		);
 		if (isset($identifierRow['identifier'])) {
 			return $identifierRow['identifier'];
 		}

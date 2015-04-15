@@ -2,10 +2,10 @@
 
 namespace MoveElevator\MeExtsearch\Service;
 
-use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use \TYPO3\CMS\Core\SingletonInterface;
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use \TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
  * Settings service. Provides access to the plugin settings
@@ -25,7 +25,8 @@ class SettingsService implements SingletonInterface {
 
 	/**
 	 * Injects the Configuration Manager and loads the settings
-	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
+	 *
+	 * @param ConfigurationManagerInterface $configurationManager
 	 * @return void
 	 */
 	public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager) {
@@ -43,6 +44,7 @@ class SettingsService implements SingletonInterface {
 
 	/**
 	 * Returns all settings.
+	 *
 	 * @param string $extensionName
 	 * @param string $pluginName
 	 * @return array|null
@@ -57,9 +59,11 @@ class SettingsService implements SingletonInterface {
 	}
 
 	/**
-	 * Returns the settings at path $path, which is separated by ".", e.g. "pages.uid".
+	 * Returns the settings at path $path, which is separated
+	 * by ".", e.g. "pages.uid".
 	 * "pages.uid" would return $this->settings['pages']['uid'].
 	 * If the path is invalid or no entry is found, false is returned.
+	 *
 	 * @param string $path
 	 * @param string $extensionName
 	 * @param string $pluginName
@@ -74,15 +78,15 @@ class SettingsService implements SingletonInterface {
 
 	/**
 	 * Returns the whole TypoScript array
+	 *
 	 * @return array
 	 */
 	public function getFullTypoScript() {
-		$ts = $this->configurationManager->getConfiguration(
+		$typoScript = $this->configurationManager->getConfiguration(
 			ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
 		);
-		return $ts;
+
+		return $typoScript;
 	}
 
 }
-
-?>

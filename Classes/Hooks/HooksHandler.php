@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class HooksHandler
+ */
 class HooksHandler {
 	/**
 	 * @var TYPO3\CMS\IndexedSearch\Controller\SearchFormController
@@ -14,7 +17,7 @@ class HooksHandler {
 	 * @return void
 	 */
 	public function initialize_postProc() {
-		if(
+		if (
 			!$this->pObj->conf['show.']['addL3section.']
 			|| !$this->pObj->conf['show.']['addL3section.']['active']
 		) {
@@ -30,15 +33,15 @@ class HooksHandler {
 		// copied and modified typo3 standard from indexed_search above hook
 
 		// check for typoscript option show.L1sections
-		if(!$this->pObj->conf['show.']['L1sections']) {
+		if (!$this->pObj->conf['show.']['L1sections']) {
 			return;
 		}
 
 		// get subpages from give page
 		$firstLevelMenu = $this->pObj->getMenu($this->pObj->wholeSiteIdList);
-		foreach($firstLevelMenu as $optionName => $mR) {
+		foreach ($firstLevelMenu as $optionName => $mR) {
 			// check for nav_hide value
-			if($mR['nav_hide']) {
+			if ($mR['nav_hide']) {
 				unset($firstLevelMenu[$optionName]);
 				continue;
 			}
@@ -48,15 +51,15 @@ class HooksHandler {
 			);
 
 			// check for typoscript option show.L2sections
-			if(!$this->pObj->conf['show.']['L2sections']) {
+			if (!$this->pObj->conf['show.']['L2sections']) {
 				continue;
 			}
 
 			// get subpages from give page
 			$secondLevelMenu = $this->pObj->getMenu($mR['uid']);
-			foreach($secondLevelMenu as $kk2 => $mR2) {
+			foreach ($secondLevelMenu as $kk2 => $mR2) {
 				// check for nav_hide value
-				if($mR2['nav_hide']) {
+				if ($mR2['nav_hide']) {
 					unset($secondLevelMenu[$kk2]);
 					continue;
 				}
@@ -68,14 +71,14 @@ class HooksHandler {
 		}
 
 		// add special option fields
-		if($this->pObj->conf['show.']['addL3section.']['pid']) {
+		if ($this->pObj->conf['show.']['addL3section.']['pid']) {
 			// read possible page ids
 			$pidArray = explode(',', $this->pObj->conf['show.']['addL3section.']['pid']);
-			foreach($pidArray as $pid) {
+			foreach ($pidArray as $pid) {
 				// get level of given page for option value
 				$level = count($GLOBALS['TSFE']->sys_page->getRootLine($pid)) - 1;
 				$pageTitle = $this->getPageTitle($pid);
-				if(!$pageTitle || $pageTitle === '') {
+				if (!$pageTitle || $pageTitle === '') {
 					continue;
 				}
 
@@ -84,8 +87,6 @@ class HooksHandler {
 				);
 			}
 		}
-
-		return;
 	}
 
 	/**
@@ -103,7 +104,7 @@ class HooksHandler {
 		);
 
 		$output = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res);
-		if(is_array($output)) {
+		if (is_array($output)) {
 			$output = array_pop($output);
 		}
 		$GLOBALS['TYPO3_DB']->sql_free_result($res);

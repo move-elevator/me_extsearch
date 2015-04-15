@@ -3,7 +3,8 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'm:e Indexed Search Extensions',
-	'description' => 'Extends indexed_search to clear search index records older than 3 and more days. Add autocomplete for search form and prepare pagebrowser to used twitter bootstrap.',
+	'description' => 'Extends indexed_search to clear search index records older than 3 and more days. ' .
+		'Add autocomplete for search form and prepare pagebrowser to used twitter bootstrap.',
 	'category' => 'plugin',
 	'author' => 'move : elevator',
 	'author_email' => 'typo3@move-elevator.de',
@@ -18,7 +19,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'modify_tables' => '',
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
-	'version' => '1.0.5',
+	'version' => '1.0.6',
 	'constraints' => array(
 		'depends' => array(
 			'extbase' => '',
@@ -28,5 +29,3 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(),
 	)
 );
-
-?>

@@ -1,8 +1,7 @@
 <?php
 namespace MoveElevator\MeExtsearch\Eid;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Utility\EidUtility;
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
 
 if (!(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_FE)) {
 	die ();
@@ -13,18 +12,17 @@ if (!(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_FE)) {
 
 /**
  * Class Autocomplete
+ *
  * @package MoveElevator\MeExtsearch\Eid
  */
 class Autocomplete {
-
-	const EXTKEY = 'meextsearch';
 
 	/**
 	 * @return void
 	 */
 	public function main() {
-		if (\t3lib_div::_GET('term')) {
-			$query = $this->createQuery(\t3lib_div::_GET('term'), $this->getLanguage());
+		if (GeneralUtility::_GET('term')) {
+			$query = $this->createQuery(GeneralUtility::_GET('term'), $this->getLanguage());
 			$words = $this->getList($query);
 			echo json_encode($words);
 		}
@@ -82,7 +80,7 @@ class Autocomplete {
 	}
 
 	protected function getLanguage() {
-		$languageId = intval(\t3lib_div::_GET('language'));
+		$languageId = intval(GeneralUtility::_GET('language'));
 		if ($languageId > 0) {
 			return $languageId;
 		}
@@ -91,7 +89,7 @@ class Autocomplete {
 	}
 
 	protected function getLimit() {
-		$limit = intval(\t3lib_div::_GET('limit'));
+		$limit = intval(GeneralUtility::_GET('limit'));
 		if ($limit > 0) {
 			return $limit;
 		}
@@ -99,5 +97,3 @@ class Autocomplete {
 		return 7;
 	}
 }
-
-?>
