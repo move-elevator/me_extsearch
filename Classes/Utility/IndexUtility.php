@@ -18,7 +18,7 @@ class IndexUtility {
 	static public function deleteRecordsByIdentifierColumn($table, $identifierColumn, $identifier) {
 		return $GLOBALS['TYPO3_DB']->exec_DELETEquery(
 			$table,
-			$identifierColumn . ' IN (\'' . implode("','", $identifier) . '\')'
+			$identifierColumn . ' IN ("' . implode('","', $identifier) . '")'
 		);
 	}
 
