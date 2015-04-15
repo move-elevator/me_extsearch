@@ -1,8 +1,7 @@
 <?php
 namespace MoveElevator\MeExtsearch\Eid;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Utility\EidUtility;
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
 
 if (!(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_FE)) {
 	die ();
@@ -13,11 +12,10 @@ if (!(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_FE)) {
 
 /**
  * Class Autocomplete
+ *
  * @package MoveElevator\MeExtsearch\Eid
  */
 class Autocomplete {
-
-	const EXTKEY = 'meextsearch';
 
 	/**
 	 * @return void
@@ -99,5 +97,3 @@ class Autocomplete {
 		return 7;
 	}
 }
-
-?>

@@ -34,5 +34,3 @@ class IndexCommandController extends CommandController {
 		return FALSE;
 	}
 }
-
-?>
