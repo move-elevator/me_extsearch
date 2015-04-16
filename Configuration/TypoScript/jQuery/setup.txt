@@ -1,0 +1,2 @@
+# Include jQuery
+page.includeJSFooterlibs.jquery = EXT:me_extsearch/Resources/Public/Javascript/lib/jquery/external/jquery/jquery.js

@@ -1,5 +1,5 @@
-page.jsFooterInline.9383 = COA
-page.jsFooterInline.9383 {
+page.jsInline.9383 = COA
+page.jsInline.9383 {
 	10 = TEXT
 	10 {
 		value = var meExtSearchLanguage = "{GP:L}";
@@ -13,9 +13,3 @@ page.jsFooterInline.9383 {
 }
 
 page.includeJSFooter.me-extsearch = EXT:me_extsearch/Resources/Public/Javascript/me_extsearch.js
-
-page.includeCSS {
-	jqueryui = http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/jquery-ui.css
-	jqueryui.external = 1
-	jqueryui.media = all
-}
