@@ -1,10 +1,16 @@
 page.jsFooterInline.9383 = COA
-page.jsFooterInline.9383.10 = TEXT
-page.jsFooterInline.9383.10.value = var meExtSearchLanguage = "{GP:L}";
-page.jsFooterInline.9383.10.insertData = 1
-page.jsFooterInline.9383.20 = TEXT
-page.jsFooterInline.9383.20.value = var meExtSearchLimit = {$plugin.tx_meextsearch.search_autocomplete.maxResults};
-page.jsFooterInline.9383.20.insertData = 1
+page.jsFooterInline.9383 {
+	10 = TEXT
+	10 {
+		value = var meExtSearchLanguage = "{GP:L}";
+		insertData = 1
+	}
+	20 = TEXT
+	20 {
+		value = var meExtSearchLimit = {$plugin.tx_meextsearch.search_autocomplete.maxResults};
+		insertData = 1
+	}
+}
 
 page.includeJSFooter.me-extsearch = EXT:me_extsearch/Resources/Public/Javascript/me_extsearch.js
 
