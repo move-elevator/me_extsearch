@@ -16,12 +16,13 @@ Extends indexed_search to clear search index records older than 3 and more days.
 ### Add autocomplete in search word field
 
 1. Include "m:e ExtSearch Autocomplete example (me_extsearch)" as static file in page template.
+2. The autocomplete example was written for template "sysext/indexed_search/pi/template_css.tmpl". It triggers by changing a field with id "#tx-indexedsearch-searchbox-sword".
 
 ### Overwrite pagebrowser
 
 1. Activate "overwritePagebrowser" in after activate extension in extension manager.
 2. Set count of list records with constants "plugin.tx_meextsearch.search_autocomplet.maxResults". Default number is 3.
-3. Activate 
+3. Activate exactCount flag with "plugin.tx_indexedsearch.search.exactCount = 1"
 
 ## Contact
 
