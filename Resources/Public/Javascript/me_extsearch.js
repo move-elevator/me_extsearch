@@ -1,6 +1,5 @@
 $( document ).ready( function() {
 	var searchbox_autocomplete_submit = function() {
-		console.log('drin');
 		$( "form#tx_indexedsearch" ).submit();
 	};
 	if ( $( "#tx-indexedsearch-searchbox-sword" ) !== undefined ) {
