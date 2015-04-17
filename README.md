@@ -30,7 +30,7 @@ Extends indexed_search to clear search index records older than 3 and more days.
 
 * typo3@move-elevator.de
 * Company: http://www.move-elevator.de
-* Issue-Tracker - https://github.com/move-elevator/me_placeholder
+* Issue-Tracker - https://github.com/move-elevator/me_extsearch
 
 ## Change Log
 
