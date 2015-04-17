@@ -1,0 +1,3 @@
+[submodule "Resources/Public/Javascript/lib/jquery"]
+	path = Resources/Public/Javascript/lib/jquery
+	url = https://github.com/jquery/jquery-ui

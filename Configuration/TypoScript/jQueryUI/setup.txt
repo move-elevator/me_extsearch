@@ -1,0 +1,8 @@
+# Include jQuery UI
+
+page.includeCSS.jqueryui = EXT:me_extsearch/Resources/Public/Javascript/lib/jquery/themes/base/all.css
+page.includeJSFooterlibs.me-extsearch-jqueryui-core = EXT:me_extsearch/Resources/Public/Javascript/lib/jquery/ui/core.js
+page.includeJSFooterlibs.me-extsearch-jqueryui-widget = EXT:me_extsearch/Resources/Public/Javascript/lib/jquery/ui/widget.js
+page.includeJSFooterlibs.me-extsearch-jqueryui-position = EXT:me_extsearch/Resources/Public/Javascript/lib/jquery/ui/position.js
+page.includeJSFooterlibs.me-extsearch-jqueryui-menu = EXT:me_extsearch/Resources/Public/Javascript/lib/jquery/ui/menu.js
+page.includeJSFooterlibs.me-extsearch-jqueryui-autocomplete = EXT:me_extsearch/Resources/Public/Javascript/lib/jquery/ui/autocomplete.js

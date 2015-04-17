@@ -15,8 +15,10 @@ Extends indexed_search to clear search index records older than 3 and more days.
 
 ### Add autocomplete in search word field
 
-1. Include "m:e ExtSearch Autocomplete example (me_extsearch)" as static file in page template.
-2. The autocomplete example was written for template "sysext/indexed_search/pi/template_css.tmpl". It triggers by changing a field with id "#tx-indexedsearch-searchbox-sword".
+1. Include "m:e ExtSearch Autocomplete jQuery (me_extsearch)" as static file in page template if needed.
+2. Include "m:e ExtSearch Autocomplete jQuery UI (me_extsearch)" as static file in page template if needed.
+3. Include "m:e ExtSearch Autocomplete example (me_extsearch)" as static file in page template.
+4. The autocomplete example was written for template "sysext/indexed_search/pi/template_css.tmpl". It triggers by changing a field with id "#tx-indexedsearch-searchbox-sword".
 
 ### Overwrite pagebrowser
 
