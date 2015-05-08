@@ -34,6 +34,10 @@ Extends indexed_search to clear search index records older than 3 and more days.
 
 ## Change Log
 
+2015-05-08  Jan Maennig  <jma@move-elevator.de>
+
+	* Update composer.json to fixed problems at extension activation
+
 2015-04-17 Jan Maennig <jma@move-elevator.de>
 
 	* Initialize Release to TER.
