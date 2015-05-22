@@ -132,7 +132,7 @@ class HooksHandler {
 		}
 
 		if (\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($output, 'LLL:')) {
-			$output = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($output,'');
+			$output = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($output, '');
 		}
 
 		return $output;
