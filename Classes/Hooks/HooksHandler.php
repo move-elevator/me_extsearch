@@ -13,7 +13,6 @@ class HooksHandler {
 	 * initialize_postProc
 	 *
 	 * Hook to rebuild the values of indexed_search
-	 *
 	 * @return void
 	 */
 	public function initialize_postProc() {
@@ -91,7 +90,6 @@ class HooksHandler {
 
 	/**
 	 * @param integer $uid
-	 *
 	 * @return string|boolean
 	 */
 	public function getPageTitle($uid) {
@@ -120,7 +118,6 @@ class HooksHandler {
 
 	/**
 	 * @param integer $uid
-	 *
 	 * @return string
 	 */
 	public function getPageTitleFromConfig($uid) {
