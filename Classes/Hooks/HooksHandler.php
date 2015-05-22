@@ -13,7 +13,6 @@ class HooksHandler {
 	 * initialize_postProc
 	 *
 	 * Hook to rebuild the values of indexed_search
-	 *
 	 * @return void
 	 */
 	public function initialize_postProc() {
@@ -91,10 +90,15 @@ class HooksHandler {
 
 	/**
 	 * @param integer $uid
-	 *
 	 * @return string|boolean
 	 */
 	public function getPageTitle($uid) {
+
+		$output = $this->getPageTitleFromConfig($uid);
+		if ($output !== '') {
+			return $output;
+		}
+
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 			'title',
 			'pages',
@@ -108,6 +112,28 @@ class HooksHandler {
 			$output = array_pop($output);
 		}
 		$GLOBALS['TYPO3_DB']->sql_free_result($res);
+
+		return $output;
+	}
+
+	/**
+	 * @param integer $uid
+	 * @return string
+	 */
+	public function getPageTitleFromConfig($uid) {
+		$output = '';
+
+		if (
+			isset($this->pObj->conf['show.']['addL3section.']['language.'])
+			&& isset($this->pObj->conf['show.']['addL3section.']['language.'][$uid])
+			&& $this->pObj->conf['show.']['addL3section.']['language.'][$uid] != ''
+		) {
+			$output = $this->pObj->conf['show.']['addL3section.']['language.'][$uid];
+		}
+
+		if (strpos($output, 'LLL:') !== FALSE) {
+			$output = $GLOBALS['LANG']->sL($output);
+		}
 
 		return $output;
 	}

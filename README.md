@@ -4,7 +4,7 @@ Extends indexed_search to clear search index records older than 3 and more days.
 
 ## Installation
 
-1. just upload and activate the extension 
+1. just upload and activate the extension
 
 ## Configuration
 
@@ -34,6 +34,10 @@ Extends indexed_search to clear search index records older than 3 and more days.
 
 ## Change Log
 
+2015-05-22  Steve Schütze  <sts@move-elevator.de>
+
+	* add level3 language label overwrite for drop down
+
 2015-05-08  Jan Maennig  <jma@move-elevator.de>
 
 	* Update composer.json to fixed problems at extension activation
@@ -44,7 +48,7 @@ Extends indexed_search to clear search index records older than 3 and more days.
 
 2013-10-25 Thomas Scholze <ts@move-elevator.de>
 
-	* Add service to clear search index 
+	* Add service to clear search index
 
 2013-10-11 Thomas Scholze <ts@move-elevator.de>
 
@@ -52,4 +56,4 @@ Extends indexed_search to clear search index records older than 3 and more days.
 
 2012-09-11 Jan Maennig <jma@move-elevator.de>
 
-	* Add service to clear search index 
+	* Add service to clear search index
