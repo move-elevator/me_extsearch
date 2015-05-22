@@ -131,8 +131,8 @@ class HooksHandler {
 			$output = $this->pObj->conf['show.']['addL3section.']['language.'][$uid];
 		}
 
-		if (strpos($output, 'LLL:') !== FALSE) {
-			$output = $GLOBALS['LANG']->sL($output);
+		if (\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($output, 'LLL:')) {
+			$output = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($output,'');
 		}
 
 		return $output;
