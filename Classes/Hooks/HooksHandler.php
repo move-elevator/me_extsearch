@@ -95,7 +95,7 @@ class HooksHandler {
 	public function getPageTitle($uid) {
 
 		$output = $this->getPageTitleFromConfig($uid);
-		if ($output != '') {
+		if ($output !== '') {
 			return $output;
 		}
 
