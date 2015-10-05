@@ -38,7 +38,7 @@ class SettingsService implements SingletonInterface {
 	 */
 	public function initializeObject() {
 		if ($this->configurationManager === NULL) {
-			$this->configurationManager = GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\Configuration\ConfigurationManager');
+			$this->configurationManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Configuration\ConfigurationManager');
 		}
 	}
 
