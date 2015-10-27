@@ -34,6 +34,10 @@ Extends indexed_search to clear search index records older than 3 and more days.
 
 ## Change Log
 
+2015-10-26  Jan Maennig  <jma@move-elevator.de>
+
+	* fixed occasionally occurring error missing class in ext_localconf.php
+
 2015-05-22  Steve Schütze  <sts@move-elevator.de>
 
 	* add level3 language label overwrite for drop down

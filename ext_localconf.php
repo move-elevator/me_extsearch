@@ -9,7 +9,10 @@ $meEstSearchNameSpaces = array(
 	'command' => 'MoveElevator\MeExtsearch\Command\IndexCommandController'
 );
 
-if (\MoveElevator\MeExtsearch\Utility\ExtensionSettingsUtility::checkPageBrowserOverwrite() === TRUE) {
+if (
+	class_exists('MoveElevator\MeExtsearch\Utility\ExtensionSettingsUtility') &&
+	\MoveElevator\MeExtsearch\Utility\ExtensionSettingsUtility::checkPageBrowserOverwrite() === TRUE
+) {
 	$GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['tx_indexedsearch'] = array(
 		'className' => $meEstSearchNameSpaces['searchForm'],
 	);
