@@ -1,4 +1,4 @@
-# cat=basic; type=int[3-999]; label=Minimum age of search cache records to be deleted
+# cat=basic; type=int[0-999]; label=Minimum age of search cache records to be deleted
 countOfDays = 3
 
 # cat=searchform/enable; type=boolean; label=Overwrite pagination in search result list.

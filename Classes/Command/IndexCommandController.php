@@ -28,7 +28,7 @@ class IndexCommandController extends CommandController {
 	 * @return array|bool
 	 */
 	public static function valid(array $configuration) {
-		if ((int)$configuration['countOfDays'] >= 3) {
+		if ((int)$configuration['countOfDays'] >= 0) {
 			return $configuration;
 		}
 
