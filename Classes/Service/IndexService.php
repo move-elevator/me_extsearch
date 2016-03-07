@@ -17,7 +17,7 @@ use \MoveElevator\MeExtsearch\Utility\ExtensionSettingsUtility;
 class IndexService implements SingletonInterface {
 
 	/**
-	 * Remove search index records which are older than 3 days
+	 * Remove search index records which are older than x days
 	 *
 	 * @return bool
 	 */
@@ -49,7 +49,7 @@ class IndexService implements SingletonInterface {
 	 */
 	protected function getCountOfDays() {
 		$countOfDays = ExtensionSettingsUtility::getSinglePropertyByName('countOfDays');
-		if (!is_numeric($countOfDays) || intval($countOfDays) < 3) {
+		if (!is_numeric($countOfDays) || intval($countOfDays) < 0) {
 			throw new InvalidConfigurationException('Invalid count of days! count of day must be number greater than or equal 3.');
 		}
 
