@@ -6,7 +6,8 @@ if (!defined('TYPO3_MODE')) {
 
 $meEstSearchNameSpaces = array(
 	'searchForm' => 'MoveElevator\MeExtsearch\Controller\SearchFormController',
-	'command' => 'MoveElevator\MeExtsearch\Command\IndexCommandController'
+	'command' => 'MoveElevator\MeExtsearch\Command\IndexCommandController',
+	'indexedSearchForm' => 'MoveElevator\MeExtsearch\Controller\SearchController'
 );
 
 if (
@@ -24,3 +25,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = $
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['indexed_search']['addRootLineFields']['tx_meextsearch_rl3'] = 3;
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['indexed_search']['pi1_hooks']['initialize_postProc'] =
 	'EXT:me_extsearch/Classes/Hooks/HooksHandler.php:HooksHandler';
+
+// register extbase plugin
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('MoveElevator.' . $_EXTKEY, 'Pi2', array('Search' => 'form,search'), array('Search' => 'search'));
