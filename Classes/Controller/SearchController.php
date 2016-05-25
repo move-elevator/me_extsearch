@@ -2,8 +2,6 @@
 
 namespace MoveElevator\MeExtsearch\Controller;
 
-use TYPO3\CMS\IndexedSearch\Controller\SearchController;
-
 /**
  * Class SearchController
  *
