@@ -7,7 +7,7 @@ if (!defined('TYPO3_MODE')) {
 $meEstSearchNameSpaces = array(
 	'searchForm' => 'MoveElevator\MeExtsearch\Controller\SearchFormController',
 	'command' => 'MoveElevator\MeExtsearch\Command\IndexCommandController',
-	'indexedSearchForm' => 'MoveElevator\MeExtsearch\Controller\SearchController'
+	'SearchController' => 'MoveElevator\MeExtsearch\Controller\SearchController'
 );
 
 if (
