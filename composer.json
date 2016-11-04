@@ -1,5 +1,5 @@
 {
-  "name": "me-extsearch",
+  "name": "move-elevator/me-extsearch",
   "type": "typo3-cms-extension",
   "require-dev": {
     "squizlabs/php_codesniffer": "1.5.5",
